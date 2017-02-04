@@ -40,6 +40,7 @@ https://www.python.org/downloads/release/python-343/
 
 	
 #### 장고 가상환경에 장고 설치하기
+
 	(myvenv) $ pip install django==1.8
 	Collecting django==1.8
 	  Using cached Django-1.8-py2.py3-none-any.whl
@@ -70,6 +71,7 @@ https://www.python.org/downloads/release/python-343/
 	└── views
 
 #### 장고 가상환경에 장고 설치하기
+
 	(myvenv) $ django-admin startproject mysite .
 
 생성된 폴더/파일 확인
@@ -83,7 +85,8 @@ https://www.python.org/downloads/release/python-343/
         __init__.py
 
 #### 장고 설정 변경 및 확인
-***mysite/settings.py***
+
+> mysite/settings.py
 
 	TIME_ZONE = 'Asia/Seoul'
 	# 정적파일 경로
@@ -110,6 +113,7 @@ https://www.python.org/downloads/release/python-343/
     )
 
 #### 데이터베이스 설치
+
 	$ python manage.py migrate
 	Operations to perform:
 	  Synchronize unmigrated apps: messages, staticfiles
@@ -148,7 +152,7 @@ http://127.0.0.1:8000/ 접속 확인
 ---
 ### 어플 제작
 
-### 어플 (blog) 기본 설치 
+#### 어플 (blog) 기본 설치 
 	(myvenv) $ python manage.py startapp blog
 
 생성폴더/파일 확인
@@ -179,7 +183,7 @@ http://127.0.0.1:8000/ 접속 확인
 
 #### blog 모델 만들기 
 
-***blog/models.py***
+> blog/models.py
 
 	from django.db import models
 	from django.utils import timezone
@@ -200,6 +204,7 @@ http://127.0.0.1:8000/ 접속 확인
 
 
 #### 데이터베이스에 blog 모델 (Post) 테이블 만들기
+
 	(myvenv) $ python manage.py makemigrations blog
 	Migrations for 'blog':
   	  0001_initial.py:
@@ -214,7 +219,8 @@ http://127.0.0.1:8000/ 접속 확인
 	
 
 #### Post 테이블 확인
-***db.sqlite3***  
+
+> db.sqlite3  
  
 	CREATE TABLE "blog_post" (  
 		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
@@ -225,7 +231,9 @@ http://127.0.0.1:8000/ 접속 확인
 		"author_id" integer NOT NULL REFERENCES "auth_user" ("id"))
 
 #### 장고 관리자 사이트에 blog 모델 (Post) 추가 
-***blog/admin.py***
+
+> blog/admin.py
+
 	from django.contrib import admin
 	from .models import Post
 	
@@ -235,6 +243,7 @@ http://127.0.0.1:8000/ 접속 확인
 http://127.0.0.1:8000/admin/ 접속
 
 #### 장고 관리자 추가 
+
 	(myvenv) $ python manage.py createsuperuser
 	Username: admin
 	Email address: admin@admin.com
@@ -244,7 +253,9 @@ http://127.0.0.1:8000/admin/ 접속
 
 
 #### 싸이트 URL 패턴 수정 
-***mysite/urls.py***
+
+> mysite/urls.py
+
 	from django.conf.urls import include, url
 	from django.contrib import admin
 	
@@ -255,8 +266,11 @@ http://127.0.0.1:8000/admin/ 접속
 	]
 
 
+
 #### blog 어플 URL 패턴 수정 
-***blog/urls.py***
+
+> blog/urls.py
+
 	from django.conf.urls import url
 	from . import views
 	
@@ -276,7 +290,8 @@ MVC 패턴의 View가 아닌 Controller와 비슷
 요청에 맞는 처리 후 템플릿 파일(HTML파일)과 연결해줌 
 
 
-***blog/views.py***
+> blog/views.py
+
 	from django.shortcuts import render, get_object_or_404
 	from django.shortcuts import redirect
 	from django.utils import timezone
@@ -321,7 +336,7 @@ MVC 패턴의 View가 아닌 Controller와 비슷
 
 #### 신규 폼 형식
 
-***blog/forms.py***
+> blog/forms.py
 
 	from django import forms
 	from .models import Post
@@ -334,7 +349,7 @@ MVC 패턴의 View가 아닌 Controller와 비슷
 
 #### 템플릿 베이스 
 
-***blog/templates/blog/base.html***
+> blog/templates/blog/base.html
 
 	{% load staticfiles %}
 	<html>
@@ -365,7 +380,7 @@ MVC 패턴의 View가 아닌 Controller와 비슷
 	</html>
 
 #### 포스트 리스트 
-***blog/templates/blog/post_list.html***
+> blog/templates/blog/post_list.html
 
 	{% extends 'blog/base.html' %}
 	
@@ -383,7 +398,7 @@ MVC 패턴의 View가 아닌 Controller와 비슷
 
 
 #### 포스트 상세
-***blog/templates/blog/post_detail.html***
+> blog/templates/blog/post_detail.html
 
 	{% extends 'blog/base.html' %}
 	
@@ -400,7 +415,7 @@ MVC 패턴의 View가 아닌 Controller와 비슷
 	{% endblock %}
 
 #### 포스트 신규
-***blog/templates/blog/post_edit.html***
+> blog/templates/blog/post_edit.html
 
 	{% extends 'blog/base.html' %}
 	
